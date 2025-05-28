@@ -1,0 +1,31 @@
+
+.button-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.button {
+  color: white;
+  background-color: var(--btn-color);
+  border: 2px solid #ED6A5A;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 2rem;
+  padding-left: 2.2rem;
+  padding-right: 2.2rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  cursor: pointer;
+  text-align: center;
+  margin-right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  
+}
+
+.button:hover {
+filter: brightness(1.2);   
+  }
+
+
+

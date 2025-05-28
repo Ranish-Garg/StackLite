@@ -1,0 +1,67 @@
+*
+{
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: Light;
+  
+}
+body
+{
+  background-color: #000000;
+  color: white;
+   font-weight: 300;
+}
+nav{
+  
+   display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  /* border-bottom: 1px solid #5B6463; */
+  font-size: large;
+  font-weight: 400;
+  padding: 1.5rem 1rem;
+  position: sticky;
+
+}
+.logo
+{
+  
+  margin-left: 1rem;
+}
+ul
+{
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+ul li{
+  cursor: pointer;
+}
+.auth
+{
+  margin-left: 12rem;
+  display: flex;
+}
+.signup, .signin
+{
+  margin: 0px 2rem 0px 0px;
+}
+.signup{
+  margin-left: 6rem;
+}
+
+.footer {
+  background-color: #5B6463; 
+  color: white;
+  text-align: center;
+  margin: auto 0px;
+  height: 5rem;
+  line-height: 5rem;  
+  font-size: 1rem;
+}
+
+.footer p {
+  margin: auto;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "./button";
 import "./Home.css";
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -13,10 +14,10 @@ function Home() {
         </p>
         <div className="morebuttons">
           <div className="ask">
-            <Button text="Ask a Question" color="#ED6A5A" />
+            <Link to="/Ask-question"><Button text="Ask a Question" color="#ED6A5A" /></Link>
           </div>
           <div className="browse">
-            <Button text="Browse Questions" color="black" />
+           <Link to="/Questions"><Button text="Browse Questions" color="black" /></Link>
           </div>
         </div>
       </div>

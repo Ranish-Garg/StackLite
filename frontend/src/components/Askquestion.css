@@ -1,0 +1,172 @@
+
+.ask-container {
+  max-width: 700px;
+  margin: auto;
+  color: #fff;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+/* Headings and text */
+.ask-container h1 {
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+}
+
+.ask-description {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.form-group .required {
+  color: #ed6a5a;
+}
+
+.form-group .sub-description {
+  font-size: 0.85rem;
+  color: #b0b0b0;
+  margin-bottom: 0.4rem;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 5px;
+  color: #eee;
+  padding: 10px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: monospace;
+}
+
+
+.tags-input {
+  
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+ 
+}
+.tagbar
+{
+    display: flex;
+  gap: 0.5rem;
+  align-items: center;
+   padding: 0.4rem;
+  
+}
+
+.tagbar input {
+   flex: 1;
+  border: none;
+  background: transparent;
+  color: #fff;
+  outline: none;
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  
+}
+
+.tags-input .add {
+  background: #ed6a5a;
+  color: #fff;
+  border-radius: 3px;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  font-weight: 500;
+  
+}
+
+.tags-input .add:hover {
+  background: #ff7a6a;
+}
+
+.tags{
+    margin: 1rem 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  background-color: #5A2C2C;
+  color: #FFCCCC;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-right: 0.3rem;
+  font-size: 0.8rem;
+ 
+}
+.tag span{
+     pointer-events: none;
+}
+.tag svg{
+    cursor: pointer;
+}
+
+
+.popular-tags {
+  margin-top: 0.5rem;
+}
+
+.popular-tags span {
+  display: inline-block;
+  background: #333;
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem;
+  margin-right: 0.3rem;
+  font-size: 0.75rem;
+  color: #ccc;
+}
+.populartext
+{
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+/* Buttons */
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.post-btn {
+  background: #ed6a5a;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.post-btn:hover {
+  background: #ff7a6a;
+}
+

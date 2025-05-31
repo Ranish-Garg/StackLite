@@ -7,11 +7,17 @@
   font-style: Light;
   
 }
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 body
 {
   background-color: #000000;
   color: white;
    font-weight: 300;
+   height: 100%;
 }
 nav{
   
@@ -24,6 +30,10 @@ nav{
   padding: 1.5rem 1rem;
   position: sticky;
 
+}
+nav a {
+  color: inherit;         /* inherit the parent color (no blue) */
+  text-decoration: none;  /* remove underline */
 }
 .logo
 {
@@ -51,6 +61,9 @@ ul li{
 .signup{
   margin-left: 6rem;
 }
+main{
+  flex: 1;
+}
 
 .footer {
   background-color: #5B6463; 
@@ -60,6 +73,8 @@ ul li{
   height: 5rem;
   line-height: 5rem;  
   font-size: 1rem;
+
+  bottom: 0px;
 }
 
 .footer p {

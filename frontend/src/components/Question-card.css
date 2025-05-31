@@ -1,0 +1,85 @@
+/* QuestionCard.css */
+
+.question-card {
+  display: flex;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.question-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.question-stats div {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.question-stats strong {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.question-stats span {
+  font-size: 0.8rem;
+  color: #b0b0b0;
+}
+
+.question-content {
+  flex: 1;
+}
+
+.question-content h3 {
+  margin: 0;
+  color: #ffffff;
+}
+
+.question-content p {
+  margin: 0.5rem 0;
+  color: #cccccc;
+}
+
+.tagsqcard {
+  margin: 0.5rem 0;
+}
+
+.tagsqcard span {
+  display: inline-block;
+  background-color: #5A2C2C;
+  color: #FFCCCC;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-right: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #aaaaaa;
+}
+
+.author .avatar {
+  width: 1rem;
+  height: 1rem;
+  background-color: #ed6a5a;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.author span {
+  margin-right: 0.5rem;
+}
+
+.author .modified {
+  margin-left: auto;
+  color: #888888;
+}

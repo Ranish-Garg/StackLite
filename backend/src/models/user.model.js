@@ -39,9 +39,16 @@ Userschema.pre('save', async function(next) {
   next();
 });
 
-Userschema.methods.getaccesstoken = ()=>
+
+Userschema.methods.ispasswordcorrect = async function(password)
 {
-    jwt.sign(
+    const result = await bcrypt.compare(password, this.password);
+    return result ;
+}
+
+Userschema.methods.getaccesstoken = function()
+{
+    return jwt.sign(
         {
             _id: this._id,
             username : this.username,
@@ -52,15 +59,15 @@ Userschema.methods.getaccesstoken = ()=>
     )
 }
 
-Userschema.methods.getrefreshtoken = ()=>
+Userschema.methods.getrefreshtoken = function()
 {
-    jwt.sign(
+    return jwt.sign(
         {
             _id:this._id,
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn : REFRESH_TOKEN_EXPIRY,
+            expiresIn : process.env.REFRESH_TOKEN_EXPIRY,
         }
     )
 }

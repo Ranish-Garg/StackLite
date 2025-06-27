@@ -22,6 +22,20 @@ const questionschema = new mongoose.Schema({
     tags: {
     type: [String], 
      required: true,
+    },
+    upvotes: [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "User"
+  
+    }],
+  downvotes: [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "User"
+    }],
+    views:
+    {
+        type: Number,
+        default: 0,
     }
 
 },{timestamps: true,})

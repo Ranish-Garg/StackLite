@@ -1,6 +1,8 @@
 import React from "react";
 import QuestionCard from "./Question-card";
+import { Link } from 'react-router-dom';
 import "./browsequestions.css"
+import QuestionDetail from "./Question.jsx"
 
 function Browsequestions() {
   return (
@@ -23,8 +25,10 @@ function Browsequestions() {
         <button className="sortbtn">Sort</button>
       </div>
 
-      <QuestionCard />
-       <QuestionCard />
+      <Link to="/question/hello"><QuestionCard /></Link>
+      <Link to="/question/baby"><QuestionCard /></Link>
+       
+       
     </>
   );
 }

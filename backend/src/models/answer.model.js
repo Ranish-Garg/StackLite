@@ -18,4 +18,4 @@ const answerschema = new mongoose.Schema({
     
 },{timestamps: true})
 
-export const Answer = mongoose.model("Answer",answerschema);
+export const Answer = mongoose.model("Answer",answerschema);    

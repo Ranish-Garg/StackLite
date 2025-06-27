@@ -6,6 +6,7 @@ import Browsequestions from "./components/browsequestions";
 import Askquestion from "./components/Askquestion";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import QuestionDetail from "./components/Question";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function AppContent() {
           <Route path="/Ask-question" element={<Askquestion />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/question/:questionid" element={<QuestionDetail/>}/>
         </Routes>
       </main>
 

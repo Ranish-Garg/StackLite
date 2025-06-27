@@ -62,3 +62,7 @@
 .sortbtn:hover {
 filter: brightness(1.2);   
   }
+a {
+  color: inherit;        /* Inherits color from parent */
+  text-decoration: none; /* Removes underline */
+}

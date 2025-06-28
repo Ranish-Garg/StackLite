@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import "./browsequestions.css"
 import QuestionDetail from "./Question.jsx"
 
+
+
 function Browsequestions() {
   return (
     <>

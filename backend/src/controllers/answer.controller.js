@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Answer } from "../models/answer.model";
+import { Answer } from "../models/answer.model.js";
 
 const uploadanswer = async(req,res)=>
 {
@@ -65,4 +65,4 @@ const numberofanswerstoques = async (req, res) => {
   }
 };
 
-export {uploadanswer}
+export {uploadanswer,numberofanswerstoques}

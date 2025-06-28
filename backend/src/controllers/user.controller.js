@@ -199,6 +199,11 @@ const refershaccesstoken = async(req,res)=>
 const getcurrentuser = async(req,res)=>
 {
   //req.user de denge
+  if(!req.user)
+  {
+    return res.status(200).send("no user loggedin")
+  }
+  
   return res.status(200).json({
     user : req.user,
   message: "current user fetched"
@@ -207,8 +212,4 @@ const getcurrentuser = async(req,res)=>
 
 
 
-
-
-
-
-export { registeruser, loginuser,logoutuser };
+export { registeruser, loginuser,logoutuser,refershaccesstoken,getcurrentuser };

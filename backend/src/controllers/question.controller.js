@@ -200,4 +200,4 @@ const searchQuestions = async (req, res) => {
 };
 
 
-export {addquestion}
+export {addquestion,numberofupvotes,upvote,downvote,increaseviews,questionfromid,getAllQuestions,searchQuestions}

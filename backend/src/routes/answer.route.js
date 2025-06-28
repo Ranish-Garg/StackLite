@@ -1,6 +1,6 @@
 import {Router} from "express"
-import { uploadanswer } from "../controllers/answer.controller"
-import { verifyuser } from "../middlewares/auth.middleware"
+import { uploadanswer } from "../controllers/answer.controller.js"
+import { verifyuser } from "../middlewares/auth.middleware.js"
 
 
 const router = Router()
@@ -8,4 +8,4 @@ const router = Router()
 router.route("/uploadanswer/:questionid").post(verifyuser,uploadanswer)
 
 
-export default {router}
+export default router

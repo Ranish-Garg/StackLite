@@ -2,9 +2,37 @@ import React from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 function Login() {
   const [canseepassword, setcanseepassword] = useState(false);
+   const [username , setusername] = useState("")
+   const [password,setpassword] = useState("")
+ 
+   const handlelogin = async(e)=>
+   {
+      e.preventDefault();
+   
+    const logindata = 
+    {
+      username,
+      password
+    }
+   try {
+      const response = await axios.post(
+         "http://localhost:3000/api/v1/users/login", 
+        logindata,
+         { 
+           withCredentials: true, 
+         }
+       );
+    
+       console.log(response);
+   } catch (error) {
+    console.log(error.message)
+   }
+   }
+
 
   return (
     <>
@@ -19,6 +47,12 @@ function Login() {
               type="text"
               className="input"
               placeholder="Enter your Username"
+               value={username}
+              onChange={(e)=>
+              {
+                setusername(e.target.value)
+              }
+              }
             />
           </div>
 
@@ -40,6 +74,12 @@ function Login() {
               type= {canseepassword ? "text" : "password"}
               className="input"
               placeholder="Enter your Password"
+               value={password}
+              onChange={(e)=>
+              {
+                setpassword(e.target.value)
+              }
+              }
             />
             {/* can see password or not  */}
 
@@ -91,7 +131,10 @@ function Login() {
 
           </div>
 
-          <button className="button-submit">Login</button>
+          <button 
+          className="button-submit"
+          onClick={handlelogin}
+          >Login</button>
           <p className="p">
             Don't have an account?{" "}
             <Link to="/Register">

@@ -21,7 +21,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="info-section">
+      {/* <div className="info-section">
         <div className="image-container">
           <img
             src="../../public/image1.jpg"
@@ -36,7 +36,7 @@ function Home() {
           <h2>Community Interaction</h2>
           <p>Engage with a community of knowledgeable individuals</p>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

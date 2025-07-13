@@ -1,6 +1,6 @@
 import React from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -8,6 +8,7 @@ function Login() {
   const [canseepassword, setcanseepassword] = useState(false);
    const [username , setusername] = useState("")
    const [password,setpassword] = useState("")
+   const navigate = useNavigate();
  
    const handlelogin = async(e)=>
    {
@@ -28,6 +29,7 @@ function Login() {
        );
     
        console.log(response);
+       navigate("/")
    } catch (error) {
     console.log(error.message)
    }

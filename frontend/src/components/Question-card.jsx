@@ -3,6 +3,18 @@ import React from 'react';
 import './Question-card.css';
 
 const QuestionCard = () => {
+
+  const dummyobject ={
+    votes: 42,
+    answers: 3,
+    views : 156,
+    title :" How to implement user authentication in React with JWT tokens?",
+    details : ` I'm building a React application and need to implement user authentication using JWT tokens.
+          I want to store the token securely and handle automatic logout when the token expires.What's the best approach for this`,
+    tags : ["javascipt" , "react","node.js"]  ,
+    username : "john_dev"   ,
+    asktime : 2,
+  }
   return (
     <div className="question-card">
       <div className="question-stats">
@@ -41,7 +53,7 @@ const QuestionCard = () => {
             <span>john_dev</span>
             <span>asked 2 hours ago</span>
           </div>
-          <span className="modified">modified 1 hour ago</span>
+         
         </div>
       </div>
     </div>

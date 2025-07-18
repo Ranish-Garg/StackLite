@@ -36,7 +36,8 @@ const uploadanswer = async(req,res)=>
         toquestion: questionid,
     })
     
-    const createdans = Answer.findById(answer._id)
+    const createdans = await Answer.findById(answer._id).populate("answeredby", "username");
+
 
     if(!createdans)
     {

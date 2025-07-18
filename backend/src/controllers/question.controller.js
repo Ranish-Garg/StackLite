@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import {Question} from "../models/question.model.js"
+import { Answer } from "../models/answer.model.js";
 
 
 const addquestion = async(req,res)=>
@@ -199,5 +200,21 @@ const searchQuestions = async (req, res) => {
   }
 };
 
+const getallanswerstoquestion = async(req,res)=>
+{
+  //params se questionid nikalenge 
+  // answers ke model se query marenge questionid se toquestion
+  const questionid = req.params.questionid;
 
-export {addquestion,numberofupvotes,upvote,downvote,increaseviews,questionfromid,getAllQuestions,searchQuestions}
+try {
+  const answers = await Answer.find({ toquestion: questionid }).populate("answeredby", "username"); // optional populate
+  res.status(200).json(answers);
+} catch (err) {
+  console.error("Failed to get answers", err);
+  res.status(500).json({ message: "Error fetching answers" });
+}
+
+}
+
+
+export {addquestion,numberofupvotes,upvote,downvote,increaseviews,questionfromid,getAllQuestions,searchQuestions,getallanswerstoquestion}

@@ -1,29 +1,30 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuestionCard from "./Question-card";
 import { Link } from "react-router-dom";
 import "./browsequestions.css";
-import QuestionDetail from "./Question.jsx";
 import axios from "axios";
 
 function Browsequestions() {
-
-  const [questions,setquestions] = useState(null)
+  const [questions, setquestions] = useState([]);
 
   useEffect(() => {
-    const getallquestions = async() => {
-
-      const response = await axios.post("http://localhost:3000/api/v1/question/getallquestions",{},
-        {
-          withCredentials: true,
-        }
-      )
-
-      console.log(response.data);
-      setquestions(response.data)
+    const getallquestions = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/v1/question/getallquestions",
+          {},
+          { withCredentials: true }
+        );
+        console.log(response.data);
+        setquestions(response.data);
+      } catch (err) {
+        console.error("Failed to fetch questions:", err);
+      }
     };
 
     getallquestions();
   }, []);
+
   return (
     <>
       <div className="useroptions">
@@ -37,10 +38,10 @@ function Browsequestions() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-search-icon lucide-search"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-search-icon lucide-search"
             >
               <path d="m21 21-4.34-4.34" />
               <circle cx="11" cy="11" r="8" />
@@ -59,12 +60,17 @@ function Browsequestions() {
         <button className="sortbtn">Sort</button>
       </div>
 
-      <Link to="/question/hello">
-        <QuestionCard />
-      </Link>
-      <Link to="/question/baby">
-        <QuestionCard />
-      </Link>
+      <div className="question-list">
+        {questions.length > 0 ? (
+          questions.map((question, index) => (
+            <Link to={`/question/${question._id || 'default'}`} key={index}>
+              <QuestionCard question={question} />
+            </Link>
+          ))
+        ) : (
+          <p>Loading questions...</p>
+        )}
+      </div>
     </>
   );
 }

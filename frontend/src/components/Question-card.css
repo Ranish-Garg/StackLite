@@ -34,6 +34,15 @@
 .question-content {
   flex: 1;
 }
+.question--details
+{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;       /* Number of lines you want */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
 
 .question-content h3 {
   margin: 0;
@@ -83,3 +92,4 @@
   margin-left: auto;
   color: #888888;
 }
+

@@ -1,49 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./Question.css";
+import axios from "axios";
 
 const QuestionDetail = () => {
-  // Dummy hardcoded data
-  const question = {
-    title: "How to implement user authentication in React with JWT tokens?",
-    details:
-      "I'm building a React application and need to implement user authentication using JWT tokens. I want to store the token securely and handle automatic logout when the token expires. What's the best approach for this?",
-    code: `// sample login function
-async function loginUser(credentials) {
-  return fetch('/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials)
-  });
-}`,
-    tags: ["react", "authentication", "jwt", "javascript"],
-    views: 156,
-    upvotes: 42,
-    downvotes: 0,
-    askedBy: "john_dev",
-    askedAt: "2 hours ago",
-  };
-
+  const { questionid } = useParams();
+  const [question, setQuestion] = useState(null);
+  const [answers, setAnswers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [answerText, setAnswerText] = useState("");
-  const [answers, setAnswers] = useState([
-    {
-      content:
-        "You can use localStorage for storing the token and set a timer to logout when it expires.",
-    },
-    {
-      content:
-        "Use HTTP-only cookies instead. They're more secure against XSS attacks.",
-    },
-    {
-      content:
-        "Consider using context + axios interceptors for automatic logout on token expiry.",
-    },
-  ]);
+  const [reload , setreload] = useState(false)
 
-  const handleAnswerSubmit = () => {
-    if (!answerText.trim()) return;
-    setAnswers([...answers, { content: answerText }]);
-    setAnswerText("");
-  };
+  useEffect(() => {
+    const fetchQuestion = async () => {
+      try {
+        const res = await axios.post(
+          `http://localhost:3000/api/v1/question/questionfromid/${questionid}`,
+          {},
+          { withCredentials: true }
+        );
+        setQuestion(res.data);
+      } catch (err) {
+        console.error("Failed to fetch question:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchAnswers = async () => {
+      try {
+        const res = await axios.post(
+          `http://localhost:3000/api/v1/question/getallanswerstoquestion/${questionid}`,
+          {},
+          { withCredentials: true }
+        );
+        setAnswers(res.data);
+      } catch (err) {
+        console.error("Failed to fetch answers:", err);
+      }
+    };
+
+    fetchQuestion();
+    fetchAnswers();
+  }, [questionid,reload]);
+
+  const handleAnswerSubmit = async () => {
+  if (!answerText.trim()) return;
+
+  try {
+    const res = await axios.post(
+      `http://localhost:3000/api/v1/answer/uploadanswer/${questionid}`,
+      { anstext: answerText },
+      { withCredentials: true }
+    );
+
+    console.log(res)
+    setreload(!reload)
+  } catch (err) {
+    console.error("Failed to submit answer:", err);
+    alert("Failed to submit answer. Please try again.");
+  }
+};
+
+  if (loading) return <p>Loading question...</p>;
+  if (!question) return <p>Question not found.</p>;
 
   return (
     <div className="question-detail-container">
@@ -59,9 +79,7 @@ async function loginUser(credentials) {
 
         <div className="question-tags">
           {question.tags.map((tag, i) => (
-            <span key={i} className="tagquespage">
-              {tag}
-            </span>
+            <span key={i} className="tagquespage">{tag}</span>
           ))}
         </div>
 
@@ -72,26 +90,29 @@ async function loginUser(credentials) {
         </div>
 
         <div className="vote-controls">
-            <div className="upvoteh"> <button disabled title="Upvote">
-            ⬆️
-          </button>
-          <div className="vote-count">{question.upvotes}</div>
-          <div className="vote-labels">Upvotes</div></div>
-         
-          <div className="downvoteh">  <button disabled title="Downvote">
-            ⬇️
-          </button>
-          <div className="vote-count">{question.downvotes}</div>
-          <div className="vote-labels">Downvotes</div>
-        </div></div>
-        
+          <div className="upvoteh">
+            <button disabled title="Upvote">⬆️</button>
+            <div className="vote-count">{question.upvotes}</div>
+            <div className="vote-labels">Upvotes</div>
+          </div>
+
+          <div className="downvoteh">
+            <button disabled title="Downvote">⬇️</button>
+            <div className="vote-count">{question.downvotes}</div>
+            <div className="vote-labels">Downvotes</div>
+          </div>
+        </div>
       </div>
 
       <div className="answers-section">
         <h3>{answers.length} Answers</h3>
         {answers.map((ans, i) => (
           <div key={i} className="answer-box">
-            {ans.content}
+            <p>{ans.anstext}</p>
+            <small>
+              Answered by <strong>{ans.answeredby?.username || "Unknown"}</strong> •{" "}
+              {new Date(ans.createdAt).toLocaleString()}
+            </small>
           </div>
         ))}
       </div>

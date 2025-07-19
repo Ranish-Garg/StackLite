@@ -9,19 +9,39 @@ const QuestionDetail = () => {
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [answerText, setAnswerText] = useState("");
-  const [reload , setreload] = useState(false)
+  const [reload, setReload] = useState(false);
+
+   const getTimeAgo = (createdAt) => {
+    const now = new Date();
+    const created = new Date(createdAt);
+    const diffInMs = now - created;
+    const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInDays > 0) return `asked ${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    if (diffInHours > 0) return `asked ${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    if (diffInMinutes > 0) return `asked ${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+    return "asked just now";
+  };
 
   useEffect(() => {
-    const fetchQuestion = async () => {
+    const fetchData = async () => {
       try {
+        await axios.post(
+          `http://localhost:3000/api/v1/question/increaseview/${questionid}`,
+          {},
+          { withCredentials: true }
+        );
         const res = await axios.post(
           `http://localhost:3000/api/v1/question/questionfromid/${questionid}`,
           {},
           { withCredentials: true }
         );
         setQuestion(res.data);
+        console.log(res.data)
       } catch (err) {
-        console.error("Failed to fetch question:", err);
+        console.error("Error fetching question:", err);
       } finally {
         setLoading(false);
       }
@@ -40,27 +60,51 @@ const QuestionDetail = () => {
       }
     };
 
-    fetchQuestion();
+    fetchData();
     fetchAnswers();
-  }, [questionid,reload]);
+  }, [questionid, reload]);
 
   const handleAnswerSubmit = async () => {
-  if (!answerText.trim()) return;
+    if (!answerText.trim()) return;
+    try {
+      await axios.post(
+        `http://localhost:3000/api/v1/answer/uploadanswer/${questionid}`,
+        { anstext: answerText },
+        { withCredentials: true }
+      );
+      setAnswerText("");
+      setReload(!reload);
+    } catch (err) {
+      console.error("Failed to submit answer:", err);
+      alert("Failed to submit answer. Please try again.");
+    }
+  };
 
-  try {
-    const res = await axios.post(
-      `http://localhost:3000/api/v1/answer/uploadanswer/${questionid}`,
-      { anstext: answerText },
-      { withCredentials: true }
-    );
+  const handleUpvote = async () => {
+    try {
+      await axios.post(
+        `http://localhost:3000/api/v1/question/upvote/${questionid}`,
+        {},
+        { withCredentials: true }
+      );
+      setReload(!reload);
+    } catch (err) {
+      console.error("Failed to upvote:", err);
+    }
+  };
 
-    console.log(res)
-    setreload(!reload)
-  } catch (err) {
-    console.error("Failed to submit answer:", err);
-    alert("Failed to submit answer. Please try again.");
-  }
-};
+  const handleDownvote = async () => {
+    try {
+      await axios.post(
+        `http://localhost:3000/api/v1/question/downvote/${questionid}`,
+        {},
+        { withCredentials: true }
+      );
+      setReload(!reload);
+    } catch (err) {
+      console.error("Failed to downvote:", err);
+    }
+  };
 
   if (loading) return <p>Loading question...</p>;
   if (!question) return <p>Question not found.</p>;
@@ -85,22 +129,17 @@ const QuestionDetail = () => {
 
         <div className="question-meta">
           <span>{question.views} views</span> •
-          <span> asked by {question.askedBy}</span> •
-          <span> {question.askedAt}</span>
+          <span> asked by {question.questionby.username}</span> •
+          <span> {getTimeAgo(question.createdAt)}</span>
         </div>
 
         <div className="vote-controls">
-          <div className="upvoteh">
-            <button disabled title="Upvote">⬆️</button>
-            <div className="vote-count">{question.upvotes}</div>
-            <div className="vote-labels">Upvotes</div>
+          <button className="vote-button" onClick={handleUpvote} title="Upvote">⬆️</button>
+          <div className="vote-score">
+            <strong>{(question.upvotes?.length || 0) - (question.downvotes?.length || 0)}</strong>
+            <span className="vote-label">Score</span>
           </div>
-
-          <div className="downvoteh">
-            <button disabled title="Downvote">⬇️</button>
-            <div className="vote-count">{question.downvotes}</div>
-            <div className="vote-labels">Downvotes</div>
-          </div>
+          <button className="vote-button" onClick={handleDownvote} title="Downvote">⬇️</button>
         </div>
       </div>
 

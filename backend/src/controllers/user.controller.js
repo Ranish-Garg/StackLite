@@ -156,14 +156,10 @@ const logoutuser = async (req, res) => {
 };
 
 const refershaccesstoken = async (req, res) => {
-  //req se cookie lenge refresh token
-  //match krenge database wale se
-  //same h to nya accesstoken bnaenge or cookie return kr denge
+  const cookierefreshtoken = req.cookies?.refreshtoken;
 
-  const cookierefreshtoken = req.cookie?.refreshtoken;
-
-  if (!cookieaccesstoken) {
-    res.status(400).send("unauthorised request");
+  if (!cookierefreshtoken) {
+    return res.status(401).json({ message: "Unauthorized: No refresh token" });
   }
 
   try {
@@ -173,35 +169,34 @@ const refershaccesstoken = async (req, res) => {
     );
 
     const user = await User.findById(decodedtoken._id);
-
     if (!user) {
-      res.status(400).send("invalid refresh token");
+      return res.status(400).json({ message: "User not found" });
     }
 
     if (user.refreshtoken !== cookierefreshtoken) {
-      res.status(400).send("Refresh token is expired or used");
+      return res.status(403).json({ message: "Invalid refresh token" });
     }
 
     const { newaccesstoken, newrefreshtoken } =
       await generaterefreshandaccesstoken(user._id);
 
     const options = {
-      secure: true,
       httpOnly: true,
+      secure: true,
+      sameSite: "Lax",
     };
 
     res
       .status(200)
       .cookie("accesstoken", newaccesstoken, options)
       .cookie("refreshtoken", newrefreshtoken, options)
-      .send("accesstokens generated");
+      .json({ message: "Tokens refreshed" }); // ✅ important: respond with JSON
   } catch (error) {
-    console.log(error.message);
-    res.status(200).json({
-      message: error.message,
-    });
+    console.error(error.message);
+    return res.status(403).json({ message: "Invalid or expired refresh token" });
   }
 };
+
 
 const getcurrentuser = async (req, res) => {
   //req.user de denge

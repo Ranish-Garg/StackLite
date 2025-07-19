@@ -45,7 +45,6 @@
 
 .tagquespage:hover {
   filter: brightness(1.2);   
-  
 }
 
 .question-meta {
@@ -57,45 +56,43 @@
 .vote-controls {
   display: flex;
   align-items: center;
-  width:fit-content;
+  justify-content: center;
   margin-top: 20px;
   background-color: #2a2a2a;
   padding: 1rem;
-  border-radius: 10px;
-  gap: 5rem;
+  border-radius: 12px;
+  gap: 20px;
 }
 
-.vote-controls button {
-  background: none;
+.vote-button {
+  font-size: 2rem;
+  background: transparent;
   border: none;
-  font-size: 1.6rem;
   color: #ff5e5e;
-  cursor: not-allowed;
+  cursor: pointer;
   transition: transform 0.1s ease;
-  
-  
 }
 
-.vote-controls button:hover {
-  filter: brightness(1.3);
+.vote-button:hover {
+  filter: brightness(1.5);
+  transform: scale(1.1);
 }
 
-.vote-count {
-  font-size: 1rem;
-  margin: 8px 0;
-  color: #ffffff;
-  font-weight: 600;
-  opacity: 0.9;
-}
-
-.vote-labels {
-  font-size: 0.7rem;
-  opacity: 0.6;
+.vote-score {
   text-align: center;
-  margin-top: 5px;
-  line-height: 1.2;
+  color: white;
 }
 
+.vote-score strong {
+  font-size: 1.4rem;
+}
+
+.vote-label {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 4px;
+}
 
 .answers-section {
   margin-top: 50px;
@@ -148,7 +145,5 @@
 }
 
 .submit-answer button:hover {
- filter: brightness(1.2);   
-  
+  filter: brightness(1.2);
 }
-

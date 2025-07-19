@@ -65,7 +65,9 @@ const upvote = async (req, res) => {
     const hasDownvoted = question.downvotes.some(id => id.toString() === userid.toString());
 
     if (hasUpvoted) {
-      return res.status(400).json({ message: "User has already upvoted" });
+       question.upvotes.pull(userid);
+      await question.save();
+      return res.status(200).json({ message: "Upvote removed", question });
     }
 
     if (hasDownvoted) {
@@ -102,7 +104,9 @@ const downvote = async (req, res) => {
     );
 
     if (hasDownvoted) {
-      return res.status(400).json({ message: "User has already downvoted" });
+      question.downvotes.pull(userid);
+      await question.save();
+      return res.status(200).json({ message: "Downvote removed", question });
     }
 
     
@@ -153,7 +157,7 @@ const questionfromid =  async(req,res)=>
  try {
    const quesid = req.params.questionid;
  
-   const question = await Question.findById(quesid);
+   const question = await Question.findById(quesid).populate("questionby","username");
  
    if(!question)
    {

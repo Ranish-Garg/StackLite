@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Question-card.css';
+import axios from 'axios';
 
 const QuestionCard = ({ question }) => {
   const {
@@ -12,6 +13,31 @@ const QuestionCard = ({ question }) => {
     downvotes = [],
     questionby,
   } = question;
+
+
+ 
+
+  const [answerCount,setanswerCount] = useState(0)
+
+   const fetchAnswers = async (questionid) => {
+      try {
+        const res = await axios.post(
+          `http://localhost:3000/api/v1/question/getallanswerstoquestion/${questionid}`,
+          {},
+          { withCredentials: true }
+        );
+        console.log(res)
+       setanswerCount(res.data.length)
+      } catch (err) {
+        console.error("Failed to fetch answers:", err);
+      }
+    };
+
+
+     useEffect(()=>
+  {
+    fetchAnswers(question._id)
+  },[]);
 
   const username = questionby?.username || "Unknown";
 
@@ -30,8 +56,8 @@ const QuestionCard = ({ question }) => {
     return "asked just now";
   };
 
-  const voteCount = upvotes.length - downvotes.length;
-  const answerCount = question.answers?.length || 0;
+  const voteCount = upvotes.length ;
+ 
 
   return (
     <div className="question-card">
